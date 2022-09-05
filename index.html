@@ -53,14 +53,19 @@
         <div id="display9">生存</div>
       </div>
     </div>
+    <div class="readText">
+      <p id="reading"></p>
+    </div>
+    <div class=""></div>
+    <div class=""></div>
     <div id="newText" class="newDisplay">
       <p id="jobTextp" class="jobDisplayTextp">This text area is</p>
       <h1 id="jobText" class="jobDisplayText">undefined</h1>
       <p id="jobTextp2" class="jobDisplayTextp2">please push rest button</p>
       <h3 id="jobTexth3" class="jobDisplayTesth3">※クレーマーもお客陣営と表示されます</p>
-    </div>
-    <div class="back">
-      <input id="backButton" type="button" name="" value="Back" onclick="back()">
+        <div class="back">
+          <input id="backButton" type="button" name="" value="Back" onclick="back()">
+        </div>
     </div>
     <div class="reSet">
       <input type="button" name="" value="Reset" onclick="reset()">
@@ -69,6 +74,19 @@
       <div id="displayStep">0</div>
     </div>
     <script type="text/javascript">
+
+      var text1 ="机の中に入っている役職カードを、ほかの人から見られないように確認してください。それではゲームを始めます。夜の時間になりました。皆さん顔を伏せてください。マフィアの人は静かに顔をあげてください。お互いに仲間を確認してください。確認出来たら静かに顔を伏せてください。メンタリストの人は静かに顔をあげてください。占いたい人を選んでください。結果はこちらです。";
+      var text2 ="確認出来たら静かに顔を伏せてください。昼になりました。皆さん顔をあげてください。犠牲者はいませんでした。話し合いをして追放する人を決めてください。制限時間は180秒です。話し合いは終わった時点で終了可能です。(180秒){(180秒全部使ったら)話し合いの時間は終了です。}投票の時間に移ります。追放したい人の番号が書かれたカードを椅子の後ろに出してください。(票集め)ありがとうございます。投票の結果が出ました。{(票数が被った場合)投票の結果、〇番さんと〇番さんが同じ票数で選ばれました。もう一度投票をいたします。〇番さんと〇番さんのどちらか（だれか）に投票してください。もう一度票数が被った場合はその人たちどちらかがランダムで追放されます。ありがとうございます。}";
+      var text3 ="投票の結果";
+      var text4 ="番さんが追放されました。{(一回目)追放された方はゲームが終了するまで待つか、退出していただいても大丈夫です。}夜になりました。皆さん顔を伏せてください。SPの人は静かに顔をあげてください。SPの人は守りたい人のカードを静かにあげてください。";
+      var text5 ="ありがとうございました。静かに顔を伏せてください。次に、マフィアの人たちは静かに顔を上げてください。{(一回目)まずは}そちらの方、放逐したい人のカードを静かにあげてください。";
+      var text6 ="ありがとうございました。静かに顔を伏せてください。メンタリストの人は静かに顔をあげてください。占いたい人のカードを静かにあげてください。結果はこちらです。<BR>(占い結果を表示した後)/ありがとうございました。静かに顔を伏せてください。重要参考人の人は静かに顔を上げてください。　霊媒したい人のカードを静かに上げてください。結果はこちらです。";
+      var text7 ="夜が明けました。皆さん顔を上げてください。{(犠牲者がいたら)";
+      var text8 ="番さんが放逐されました。放逐された方はゲームが終了するまで待つか、退出していただいても大丈夫です。}話し合いをして追放する人を決めてください。制限時間は180秒です。話し合いは終わった時点で終了可能です。(180秒){(180秒全部使ったら)話し合いの時間は終了です。}投票の時間に移ります。追放したい人の番号が書かれたカードを椅子の後ろに出してください。(票集め)ありがとうございます。投票の結果が出ました。{(票数が被った場合)投票の結果、〇番さんと〇番さんが同じ票数で選ばれました。もう一度投票をいたします。〇番さんと〇番さんのか（だれか）に投票してください。もう一度票数が被った場合はその人たちどちらかがランダムで追放されます。ありがとうございます。}";
+      var text9 ="";
+      var text10 ="";
+      var text11 ="";
+      var text12 ="";
 
       let ep = 7;
       let ap = 2;
@@ -129,6 +147,8 @@
       let naohiro21 = 0;
 
       function reset(){
+
+        displaySet("reading",text1);
 
         ep = 7;
         ap = 2;
@@ -729,6 +749,7 @@
               lifeControlTo3(playerNumber,playerName);
             }
             stepUp();
+            displaySet("reading",text5);
           }
           break;
           case 3:
@@ -766,6 +787,7 @@
               displaySet(playerDisplayAID,"来死");
             }
             stepUp();
+            displaySet("reading",text6);
           }
           break;
           case 4:
@@ -819,6 +841,9 @@
         if(step == 5){
           buttonOn("backButton");
         }
+        if(step==1){
+          displaySet("reading",text2);
+        }
       }
 
       function stepUp(){
@@ -864,6 +889,7 @@
           displayKilleder();
           break;
           case 6:
+          displaySet("reading",text7+findPlayerNumber(4)+text8);
           for(let i=0;i<=10;i++){
             returnLifeNumberTo1(findPlayerTolife(3));
           }
@@ -954,6 +980,38 @@
           break;
           case life9:
           return player9;
+          break;
+        }
+      }
+
+      function findPlayerNumber(findLifeID){
+        switch (findLifeID){
+          case life1:
+          return 1;
+          break;
+          case life2:
+          return 2;
+          break;
+          case life3:
+          return 3;
+          break;
+          case life4:
+          return 4;
+          break;
+          case life5:
+          return 5;
+          break;
+          case life6:
+          return 6;
+          break;
+          case life7:
+          return 7;
+          break;
+          case life8:
+          return 8;
+          break;
+          case life9:
+          return 9;
           break;
         }
       }
@@ -1479,6 +1537,9 @@
         }
         if((life9 != 0)&&(life9 != 2)){
           buttonOn("button9");
+        }
+        if(step==1){
+          displaySet("reading",text3+findPlayerNumber(2)+text4);
         }
       }
 
